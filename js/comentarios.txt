@@ -1,0 +1,60 @@
+ //$.ajax já é uma função do jquery, onde realiza uma requisição na url passada com tipo GET
+ // e se tudo der certo ele mostra(traz o dicionário) de dados no console do navegador.
+ $.ajax({
+        url:"https://viacep.com.br/ws/37890000/json/",
+        type: "GET",
+        success : function(response){
+           console.log(response.localidade); 
+           alert(response.uf)
+        }
+    })
+
+Parte 1 e Parte 2 index HTML-------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Página</title>
+    <script type="text/javascript" src="aula_jquery_ajax/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="aula_jquery_ajax/js/main.js"></script>
+</head>
+<body>
+    <input id="cep">
+    <button type="button" onclick="consultaCEP()">consultar CEP</button>  
+    <p id="ddd"></p>
+    <p id="ibge"></p>
+    <p id="localidade"></p>
+    <p id="uf"></p>
+</body>
+</html>
+
+Parte 1 e Parte 2 main JS ------------------------------------------------------------------------------------
+
+alert("Funcionou");
+
+function consultaCEP(){
+    //a linha abaixo armazena na variável --cep-- o valor do input com --id-- cep e exibe no
+    // console utilizando a biblioteca jquery que está no index.html
+    var cep = document.getElementById("cep").value;
+    var url = "https://viacep.com.br/ws/"+cep+"/json/";
+    console.log(url);
+    //exibe pelo console.log(response) os dados ddd,ibge,localidade e uf(mostra na tela do HTML)
+    //innerHTML retorna uma string, representando o conteúdo HTML de um elemento(parágrafo,div,inputs, etc.).
+    // o $ para acessar o jquery
+    $.ajax({
+        url:url,
+        type: "GET",
+        
+        success : function(response){
+           //1) forma de exibição
+           $("#ddd").html(response.ddd);
+           console.log(response); 
+           //document.getElementById("ddd").innerHTML = response.ddd;
+           //2) outra maneira de exibição
+           document.getElementById("ibge").innerHTML = response.ibge;
+           document.getElementById("localidade").innerHTML = response.localidade;
+           document.getElementById("uf").innerHTML = response.uf;
+        }
+    })
+}
